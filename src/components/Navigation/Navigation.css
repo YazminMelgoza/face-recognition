@@ -1,0 +1,14 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+nav p {
+    padding: 0.5rem 1rem;
+    margin: 0;
+    border-radius: 0.5rem;
+    background-color: rgb(79, 19, 177);
+    color: white;
+}

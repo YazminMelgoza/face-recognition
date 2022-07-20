@@ -1,0 +1,48 @@
+#detect {
+    background-color: #ed1c54;
+    border: 2px solid #ed1c54;
+    box-sizing: border-box;
+    color: white;
+    transition: all 0.3s ease;
+    height: 2rem;
+    font-size: 1rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+    padding: 1rem 0;
+    width: 20%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#detect:hover {
+    background-color: #5e0043;
+    border-color: #5e0043;
+
+}
+
+#detect:active{
+    transform: scale(0.9);
+    margin: 0;
+}
+
+input[type='text'] {
+    height: 2rem;
+    width: 70%;
+}
+
+#form-container {
+    background-color: rgba(87, 87, 230, 0.2);
+opacity: 0.8;
+background-image:  linear-gradient(#fdfdfd 1px, transparent 1px), linear-gradient(to right, #fdfdfd 1px, rgba(87, 87, 230, 0.2) 1px);
+background-size: 20px 20px;
+    background-position: 3rem 2rem;
+    border-radius: 1rem;
+    padding: 2rem 0;
+    margin: 0 auto;
+    width: 90%;
+    max-width: 28rem;
+}
+
+.f2 {
+    font-size: 1.5rem;
+}

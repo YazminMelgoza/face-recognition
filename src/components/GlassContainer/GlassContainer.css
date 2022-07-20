@@ -1,0 +1,12 @@
+div.GlassContainer {
+    background: rgba(255, 255, 255, 0.2);
+    margin: 2rem;
+    border-radius: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-sizing: border-box;
+    padding: 0;
+}
+
+.mainContainer > div{
+    height: calc(100vh - 4rem) ;
+}
