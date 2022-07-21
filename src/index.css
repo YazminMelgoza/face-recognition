@@ -27,3 +27,14 @@ div.App > div.GlassContainer {
 button {
   cursor: pointer;
 }
+
+div.GlassContainer  div.GlassContainer {
+  backdrop-filter: blur(10px);
+  border: 0px;
+  display: inline-block;
+}
+
+nav > div.GlassContainer {
+  float: right;
+  border-radius: 0.5rem;
+}

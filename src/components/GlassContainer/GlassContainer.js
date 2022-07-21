@@ -1,8 +1,9 @@
 import React from 'react'; 
 import './GlassContainer.css'
 const GlassContainer = (props) => {
+    
     return (
-        <div className="GlassContainer">
+        <div className="GlassContainer" style={{margin: props.margin}}>
             {props.children}
         </div>
     )

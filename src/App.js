@@ -8,7 +8,8 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import { loadFull } from "tsparticles";
 import './App.css';
 import Clarifai from 'clarifai';
-
+import SignIn from './components/SignIn/SignIn';
+import Register from './components/Register/Register';
 const app = new Clarifai.App({
   apiKey: 'cc88967295284ba2b456bdb27e155cae'
 });
@@ -82,7 +83,9 @@ class App extends Component {
     super();
     this.state = {
       input: '',
-      boxes: []
+      boxes: [],
+      route: 'signin',
+      isSignedIn: false
     }
   };
 
@@ -97,6 +100,7 @@ class App extends Component {
         boundingBox.bottom_row = 1 - Number(boundingBox.bottom_row);
         boundingBox.right_col = 1 - Number(boundingBox.right_col);
         // Now, iterate through the object and convert the values to percentage
+        // eslint-disable-next-line
         Object.keys(boundingBox).map(key => {
           boundingBox[key] = String(Math.round(Number(boundingBox[key]) * 10000) / 100) + '%';
         });
@@ -131,15 +135,35 @@ class App extends Component {
       this.onButtonSubmit();
     }
   }; 
+  onRouteChange = (route) => {
+    if (route === 'home') {
+      this.setState({isSignedIn: true})
+    } else {
+      this.setState({isSignedIn: false})
+    }
+    this.setState({route: route})
+  }
   render() {
     return (
       <div className="App">
         <Particles id="tsparticles" init={this.particlesInit} loaded={this.particlesLoaded} options={particleConfig}/>
-        <GlassContainer>      
-          <Navigation/>
-          <Rank/>
-          <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit} onEnterSubmit={this.onEnterSubmit}/>
-          <FaceRecognition boxes={this.state.boxes} sourceImg={this.state.imageUrl}/>
+        <GlassContainer>
+          <Navigation onRouteChange={this.onRouteChange} isSignedIn={this.state.isSignedIn}/>
+          { this.state.route === 'signin'
+            ? <GlassContainer>
+                <SignIn onRouteChange={this.onRouteChange}/>      
+              </GlassContainer>
+            : (this.state.route === 'home'
+              ? <div>
+                  <Rank/>
+                  <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit} onEnterSubmit={this.onEnterSubmit}/>
+                  <FaceRecognition boxes={this.state.boxes} sourceImg={this.state.imageUrl}/>
+                </div>
+              : <GlassContainer>
+                  <Register onRouteChange={this.onRouteChange}/>      
+                </GlassContainer>
+            )
+          }
         </GlassContainer>
         
       </div>

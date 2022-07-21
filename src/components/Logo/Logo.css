@@ -2,4 +2,9 @@
     background: white;
     box-shadow: 1px 1px black 1px;
     margin: 0 3rem;
+    float: left;
+}
+
+div > img {
+    float: left;
 }

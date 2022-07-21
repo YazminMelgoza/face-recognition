@@ -4,7 +4,7 @@ import brain from './brain.png'
 const Logo = () => {
     
     return(
-        <div options={{max:100}}>
+        <div>
                     <img alt="brain" src={brain} style={{height: "5rem"}}/>
         </div>
     )

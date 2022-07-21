@@ -1,14 +1,16 @@
 nav {
-    display: flex;
+    /* display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; */
     padding: 1rem;
+    overflow: hidden;
 }
 
 nav p {
+    /* display: inline-block; */
     padding: 0.5rem 1rem;
     margin: 0;
-    border-radius: 0.5rem;
-    background-color: rgb(79, 19, 177);
     color: white;
+    cursor: pointer;
+    
 }
