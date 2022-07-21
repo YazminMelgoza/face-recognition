@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Particles from "react-tsparticles";
-import Navigation from './components/Navigation/Navigation'
-import GlassContainer from './components/GlassContainer/GlassContainer'
+import Navigation from './components/Navigation/Navigation';
+import FaceRecognition from './components/FaceRecognition/FaceRecognition';
+import GlassContainer from './components/GlassContainer/GlassContainer';
 import Rank from './components/Rank/Rank';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import { loadFull } from "tsparticles";
@@ -81,8 +82,29 @@ class App extends Component {
     super();
     this.state = {
       input: '',
+      boxes: []
     }
   };
+
+  calculateFaceLocation = (data) => {
+      console.log(data);
+      const regions = data.outputs[0].data.regions;
+      // For each one of the regions, 
+      const boxes = regions.map(region => {
+        // selects the bounding box Object
+        let boundingBox = region.region_info.bounding_box;
+        // Corrects bottom row
+        boundingBox.bottom_row = 1 - Number(boundingBox.bottom_row);
+        boundingBox.right_col = 1 - Number(boundingBox.right_col);
+        // Now, iterate through the object and convert the values to percentage
+        Object.keys(boundingBox).map(key => {
+          boundingBox[key] = String(Math.round(Number(boundingBox[key]) * 10000) / 100) + '%';
+        });
+        return boundingBox;
+      });
+      this.setState({boxes: boxes})
+  };
+
   particlesInit = async (main) => {
     console.log("particles init", main);
     await loadFull(main);
@@ -93,26 +115,31 @@ class App extends Component {
   };
 
   onInputChange = (event) => {
-    console.log(event);
-  }
+    this.setState({input: event.target.value});
+  };
+
   onButtonSubmit = () => {
-    console.log('click');
-    app.models.predict(
-      Clarifai.FACE_DETECT_MODEL,
-      'https://samples.clarifai.com/face-det.jpg'
-    ).then(response => {
-      console.log('hi', response)
-    })
-  }
+    this.setState({imageUrl: this.state.input});
+    // Asyncronously get the data from API
+    app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
+      .then(response => this.calculateFaceLocation(response))
+      .catch(err => console.log(err));
+  };
+
+  onEnterSubmit = (e) => {
+    if (e.key === 'Enter') {
+      this.onButtonSubmit();
+    }
+  }; 
   render() {
     return (
       <div className="App">
-        <GlassContainer>
         <Particles id="tsparticles" init={this.particlesInit} loaded={this.particlesLoaded} options={particleConfig}/>
-    
+        <GlassContainer>      
           <Navigation/>
           <Rank/>
-          <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
+          <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit} onEnterSubmit={this.onEnterSubmit}/>
+          <FaceRecognition boxes={this.state.boxes} sourceImg={this.state.imageUrl}/>
         </GlassContainer>
         
       </div>

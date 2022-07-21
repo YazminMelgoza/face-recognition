@@ -1,0 +1,15 @@
+#face-recognition {
+    width: 100%;
+    max-width: 40rem;
+}
+
+#image-container {
+    margin-top: 2rem;
+    position: relative;
+    display: inline-block;
+}
+
+.bounding-box {
+    position: absolute;
+    border: 2px solid blue;
+}

@@ -6,7 +6,3 @@ div.GlassContainer {
     box-sizing: border-box;
     padding: 0;
 }
-
-.mainContainer > div{
-    height: calc(100vh - 4rem) ;
-}

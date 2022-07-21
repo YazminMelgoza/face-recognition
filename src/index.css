@@ -9,6 +9,7 @@ body {
   background-image: url('5479107.jpg');
   background-size: cover;
   background-position: center;
+  background-attachment: fixed;
   color: white;
 }
 
@@ -19,7 +20,8 @@ code {
 
 /* Resized the main container to be fullscreen (but with margin) */
 div.App > div.GlassContainer {
-  height: calc(100vh - 4rem);
+  min-height: calc(100vh - 4rem);
+  padding-bottom: 2rem;
 }
 
 button {
