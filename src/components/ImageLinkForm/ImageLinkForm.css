@@ -25,8 +25,8 @@
     margin: 0;
 }
 
-input[type='text'] {
-    height: 2rem;
+#imagelink {
+    height: calc(2rem + 4px);
     width: 70%;
 }
 
